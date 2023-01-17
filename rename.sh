@@ -80,7 +80,8 @@ for i in ${!FILES[@]}; do
     # Allow the user to interrupt the command only
     # for the current file if a problem occurs.
     trap 'echo "Command interrupted"; trap 2; continue' 2
-    NEWNAME=`eval echo "$FILENAME" | $CMD`
+    #NEWNAME=`eval echo "$FILENAME" | $CMD`
+    NEWNAME=`echo "$FILENAME" | eval $CMD`
     trap 2
 
     # Check if the new file name is a path.
