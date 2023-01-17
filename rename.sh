@@ -80,7 +80,6 @@ for i in ${!FILES[@]}; do
     # Allow the user to interrupt the command only
     # for the current file if a problem occurs.
     trap 'echo "Command interrupted"; trap 2; continue' 2
-    #NEWNAME=`eval echo "$FILENAME" | $CMD`
     NEWNAME=`echo "$FILENAME" | eval $CMD`
     trap 2
 
@@ -112,6 +111,14 @@ for i in ${!FILES[@]}; do
             continue
         fi
         echo -e " (ok)"
+    fi
+
+
+    if [ "$FILENAME" == "$NEWNAME" ]; then
+        if [[ $VERBOSE = 1 ]]; then
+            echo "File \"$FILENAME\" renamed to \"$NEWNAME\" (same name)."
+        fi
+        continue
     fi
 
     # Check if there is a conflict because of the new file name,
