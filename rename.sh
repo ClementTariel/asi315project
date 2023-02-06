@@ -79,7 +79,17 @@ for i in ${!FILES[@]}; do
 
     # Allow the user to interrupt the command only
     # for the current file if a problem occurs.
-    trap 'echo "Command interrupted"; trap 2; continue' 2
+    trap 'echo ""
+    echo "Command interrupted"
+    trap 2
+    echo -n "Interrupt the whole process [Y/n] ? "
+    REPLY=""
+    read $REPLY
+    if [[($REPLY =~ ^[Yy]$) ]]; then
+        echo "Process interrupted"
+        exit
+    fi
+    continue' 2
     NEWNAME=`echo "$FILENAME" | eval $CMD`
     trap 2
 
